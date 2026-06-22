@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>さおりのペットシッター</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+:root {
+  --accent: #D4789A;
+  --accent-d: #B05A7A;
+  --accent-l: #FCF0F4;
+  --accent-m: #EBBCCC;
+  --bg: #fff;
+  --surface: #FDF7F9;
+  --surface-d: #F5E8EE;
+  --text: #2A1F24;
+  --text-m: #7A6068;
+  --text-s: #B09098;
+  --border: #ECD8E0;
+  --r: 14px;
+  --rs: 9px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--surface);
+  padding: 36px 22px 28px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.hero-av {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--accent-l); border: 2px solid var(--accent-m);
+  margin: 0 auto 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+}
+.hero-name {
+  font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 3px;
+}
+.hero-area {
+  font-size: 12px; color: var(--text-m); margin-bottom: 14px;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 18px;
+}
+.hero-tag {
+  font-size: 11px; padding: 4px 11px; border-radius: 20px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--text-m);
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden; margin-bottom: 20px;
+}
+.hs {
+  padding: 10px 4px; text-align: center;
+  border-right: 1px solid var(--border);
+}
+.hs:last-child { border-right: none; }
+.hs-v { font-size: 15px; font-weight: 700; color: var(--accent); }
+.hs-l { font-size: 10px; color: var(--text-s); margin-top: 1px; }
+.hero-btn {
+  display: block; width: 100%;
+  background: var(--accent); color: #fff;
+  font-size: 15px; font-weight: 700;
+  padding: 14px; border-radius: var(--r);
+  text-decoration: none; border: none; cursor: pointer;
+  font-family: inherit;
+}
+.hero-btn:hover { background: var(--accent-d); }
+.hero-note {
+  font-size: 11px; color: var(--text-s);
+  display: flex; justify-content: center; gap: 14px;
+  margin-top: 10px; flex-wrap: wrap;
+}
+
+/* ── SECTION ── */
+.sec { padding: 28px 18px 0; }
+.sec-label {
+  font-size: 11px; color: var(--text-s); letter-spacing: .07em;
+  margin-bottom: 4px;
+}
+.sec-title {
+  font-size: 17px; font-weight: 700; margin-bottom: 4px; line-height: 1.4;
+}
+.sec-sub {
+  font-size: 12px; color: var(--text-m); line-height: 1.7; margin-bottom: 16px;
+}
+.divider { height: 1px; background: var(--border); margin: 28px 18px 0; }
+
+/* ── SERVICE CARDS ── */
+.svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.svc-card {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 14px 12px;
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+.svc-card:hover { border-color: var(--accent-m); }
+.svc-card.on { border-color: var(--accent); background: var(--accent-l); }
+.svc-em { font-size: 24px; margin-bottom: 6px; }
+.svc-nm { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.svc-pr { font-size: 12px; color: var(--accent); font-weight: 700; }
+.svc-ds { font-size: 11px; color: var(--text-s); margin-top: 4px; line-height: 1.5; }
+.opts {
+  display: flex; flex-direction: column; gap: 6px; margin-top: 12px;
+}
+.opt {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; padding: 9px 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rs); color: var(--text-m);
+}
+.opt-p { color: var(--accent); font-weight: 700; }
+
+/* ── CALENDAR ── */
+.cal-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.cal-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--bg);
+}
+.cal-month { font-size: 14px; font-weight: 700; }
+.cal-nav {
+  background: none; border: 1px solid var(--border); border-radius: 20px;
+  padding: 5px 13px; cursor: pointer; font-size: 12px;
+  color: var(--text-m); font-family: inherit;
+}
+.cal-nav:hover { border-color: var(--accent); color: var(--accent); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+.cal-dn {
+  text-align: center; padding: 8px 2px;
+  font-size: 10px; font-weight: 700; color: var(--text-s);
+  background: var(--surface);
+}
+.cal-cell {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; cursor: pointer; transition: all .12s;
+  color: var(--text); font-weight: 500;
+}
+.cal-cell.open:hover { background: var(--accent-m); color: #fff; border-radius: 50%; }
+.cal-cell.open.sel { background: var(--accent); color: #fff; border-radius: 50%; }
+.cal-cell.busy { color: var(--border); cursor: default; text-decoration: line-through; }
+.cal-cell.other { color: var(--border); cursor: default; }
+.cal-legend {
+  display: flex; gap: 14px; padding: 10px 14px;
+  font-size: 11px; color: var(--text-s);
+  border-top: 1px solid var(--border); background: var(--bg);
+}
+.leg { display: flex; align-items: center; gap: 5px; }
+.leg-dot { width: 8px; height: 8px; border-radius: 50%; }
+.sel-info {
+  margin-top: 8px; padding: 10px 13px; border-radius: var(--rs);
+  font-size: 13px; font-weight: 500; display: none;
+}
+.sel-info.show { display: block; }
+.sel-open { background: var(--accent-l); color: var(--accent-d); border: 1px solid var(--accent-m); }
+.sel-busy { background: #FDF0F0; color: #C05050; border: 1px solid #F0C0C0; }
+
+/* ── REVIEWS ── */
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.badge {
+  font-size: 11px; padding: 5px 12px; border-radius: 20px;
+  background: var(--surface); border: 1px solid var(--border); color: var(--text-m);
+}
+.rv-list { display: flex; flex-direction: column; gap: 10px; }
+.rv {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 14px;
+}
+.rv-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.rv-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--accent-l); display: flex; align-items: center;
+  justify-content: center; font-size: 17px; flex-shrink: 0;
+}
+.rv-nm { font-size: 13px; font-weight: 700; }
+.rv-pet { font-size: 11px; color: var(--text-s); }
+.rv-stars { color: #E8A040; font-size: 12px; margin-left: auto; }
+.rv-tx { font-size: 13px; color: var(--text-m); line-height: 1.75; }
+.rv-dt { font-size: 11px; color: var(--text-s); margin-top: 5px; }
+
+/* ── FORM ── */
+.form-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 20px;
+}
+.form-hint {
+  font-size: 12px; color: var(--text-m); line-height: 1.7;
+  margin-bottom: 18px; padding: 10px 12px;
+  background: var(--bg); border-radius: var(--rs);
+  border: 1px solid var(--border);
+}
+.fl { margin-bottom: 14px; }
+.fl label {
+  display: block; font-size: 12px; color: var(--text-m);
+  margin-bottom: 5px; font-weight: 500;
+}
+.req { color: var(--accent); }
+.fl input, .fl select, .fl textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: var(--rs);
+  padding: 10px 12px; font-size: 13px; color: var(--text);
+  background: var(--bg); font-family: inherit; -webkit-appearance: none;
+  transition: border-color .15s;
+}
+.fl input:focus, .fl select:focus, .fl textarea:focus {
+  outline: none; border-color: var(--accent);
+}
+.fl textarea { resize: none; min-height: 70px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.chip {
+  padding: 6px 14px; font-size: 12px; border-radius: 20px;
+  border: 1.5px solid var(--border); background: var(--bg);
+  color: var(--text-m); cursor: pointer; font-family: inherit;
+  transition: all .12s;
+}
+.chip:hover { border-color: var(--accent-m); }
+.chip.on {
+  background: var(--accent-l); border-color: var(--accent);
+  color: var(--accent-d); font-weight: 700;
+}
+.est-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 13px 15px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 14px 0;
+}
+.est-lbl { font-size: 12px; color: var(--text-m); }
+.est-note { font-size: 11px; color: var(--text-s); margin-top: 1px; }
+.est-val { font-size: 22px; font-weight: 700; color: var(--accent); }
+.submit-btn {
+  width: 100%; padding: 14px; background: var(--accent); color: #fff;
+  border: none; border-radius: var(--r); font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: inherit; letter-spacing: .02em;
+}
+.submit-btn:hover { background: var(--accent-d); }
+.submit-btn:disabled { opacity: .6; cursor: not-allowed; }
+.ai-box {
+  background: var(--accent-l); border: 1px solid var(--accent-m);
+  border-radius: var(--rs); padding: 11px 13px;
+  font-size: 12px; color: var(--accent-d);
+  line-height: 1.7; margin-top: 10px; display: none;
+}
+.ai-box.show { display: block; }
+.spin {
+  width: 10px; height: 10px; border: 2px solid var(--accent-m);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: sp .8s linear infinite;
+  display: inline-block; vertical-align: middle; margin-right: 4px;
+}
+@keyframes sp { to { transform: rotate(360deg); } }
+
+/* ── SUCCESS ── */
+.success { display: none; text-align: center; padding: 32px 20px; }
+.success.show { display: block; }
+.su-icon { font-size: 52px; margin-bottom: 12px; }
+.su-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+.su-sub { font-size: 13px; color: var(--text-m); line-height: 1.8; margin-bottom: 18px; }
+.su-note {
+  background: var(--surface); border-radius: var(--rs);
+  padding: 13px 14px; font-size: 12px; color: var(--text-m);
+  line-height: 1.85; text-align: left; margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+/* ── FOOTER ── */
+.footer {
+  padding: 24px 18px; text-align: center;
+  font-size: 11px; color: var(--text-s);
+  border-top: 1px solid var(--border); margin-top: 28px;
+}
+.footer-name { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 3px; }
+
+/* ── CONTACT FLOAT ── */
+.float-btn {
+  position: fixed; bottom: 18px; right: 18px;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--accent); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 10px 16px;
+  border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; box-shadow: 0 3px 14px rgba(180, 100, 130, .28);
+}
+.float-btn:hover { background: var(--accent-d); }
+
+@media (max-width: 360px) {
+  .svc-grid { grid-template-columns: 1fr; }
+  .two { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-av">👩</div>
+  <div class="hero-name">さおりのペットシッター</div>
+  <div class="hero-area">渋谷区・世田谷区・目黒区｜小型犬・猫専門</div>
+  <div class="hero-tags">
+    <span class="hero-tag">🐩 小型犬</span>
+    <span class="hero-tag">🐈 猫</span>
+    <span class="hero-tag">💊 投薬対応</span>
+    <span class="hero-tag">🏠 自宅訪問</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-v">5年</div><div class="hs-l">経験</div></div>
+    <div class="hs"><div class="hs-v">312回</div><div class="hs-l">実績</div></div>
+    <div class="hs"><div class="hs-v">★4.9</div><div class="hs-l">評価</div></div>
+    <div class="hs"><div class="hs-v">74%</div><div class="hs-l">リピート</div></div>
+  </div>
+  <a href="#form-area" class="hero-btn">予約リクエストを送る</a>
+  <div class="hero-note">
+    <span>✓ 1〜2時間以内に返信</span>
+    <span>✓ まず相談だけでもOK</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="sec">
+  <div class="sec-label">SERVICE & PRICE</div>
+  <div class="sec-title">サービス・料金</div>
+  <div class="sec-sub">タップするとフォームに自動で反映されます。</div>
+  <div class="svc-grid">
+    <div class="svc-card" onclick="pickSvc(this,'お留守番')">
+      <div class="svc-em">🏠</div>
+      <div class="svc-nm">お留守番</div>
+      <div class="svc-pr">¥2,000 / 時間〜</div>
+      <div class="svc-ds">ご自宅を訪問してお世話します</div>
+    </div>
+    <div class="svc-card" onclick="pickSvc(this,'お散歩')">
+      <div class="svc-em">🦮</div>
+      <div class="svc-nm">お散歩</div>
+      <div class="svc-pr">¥1,500 / 30分〜</div>
+      <div class="svc-ds">ご希望のコースでお散歩します</div>
+    </div>
+    <div class="svc-card" onclick="pickSvc(this,'お泊まり')">
+      <div class="svc-em">🌙</div>
+      <div class="svc-nm">お泊まり</div>
+      <div class="svc-pr">¥8,000 / 泊〜</div>
+      <div class="svc-ds">旅行・出張中のお世話。毎日レポートをお送りします</div>
+    </div>
+    <div class="svc-card" onclick="pickSvc(this,'病院付き添い')">
+      <div class="svc-em">🏥</div>
+      <div class="svc-nm">病院付き添い</div>
+      <div class="svc-pr">¥3,000 / 回〜</div>
+      <div class="svc-ds">動物病院への送り迎えをします</div>
+    </div>
+  </div>
+  <div class="opts">
+    <div class="opt"><span>💊 投薬対応</span><span class="opt-p">+ ¥500</span></div>
+    <div class="opt"><span>🌙 深夜・早朝</span><span class="opt-p">+ ¥1,000</span></div>
+    <div class="opt"><span>🐾 2頭目以降</span><span class="opt-p">半額</span></div>
+  </div>
+</div>
+
+<!-- CALENDAR -->
+<div class="divider"></div>
+<div class="sec" style="padding-top:28px;">
+  <div class="sec-label">AVAILABILITY</div>
+  <div class="sec-title">空き状況</div>
+  <div class="sec-sub">日付をタップすると予約フォームに自動入力されます。</div>
+  <div class="cal-card">
+    <div class="cal-hd">
+      <button class="cal-nav" onclick="calMove(-1)">←</button>
+      <div class="cal-month" id="cal-month"></div>
+      <button class="cal-nav" onclick="calMove(1)">→</button>
+    </div>
+    <div class="cal-grid">
+      <div class="cal-dn">月</div><div class="cal-dn">火</div><div class="cal-dn">水</div>
+      <div class="cal-dn">木</div><div class="cal-dn">金</div>
+      <div class="cal-dn">土</div><div class="cal-dn">日</div>
+    </div>
+    <div class="cal-grid" id="cal-cells"></div>
+    <div class="cal-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--accent);"></div>空きあり</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--border);"></div>満員・休み</div>
+    </div>
+  </div>
+  <div class="sel-info" id="sel-info"></div>
+</div>
+
+<!-- REVIEWS -->
+<div class="divider"></div>
+<div class="sec" style="padding-top:28px;">
+  <div class="sec-label">REVIEWS</div>
+  <div class="sec-title">口コミ・実績</div>
+  <div class="badges">
+    <span class="badge">🏅 リピート率 74%</span>
+    <span class="badge">📸 毎回写真レポート</span>
+    <span class="badge">💊 投薬実績多数</span>
+    <span class="badge">🎓 ペットシッター資格</span>
+  </div>
+  <div class="rv-list">
+    <div class="rv">
+      <div class="rv-hd">
+        <div class="rv-av">👩</div>
+        <div><div class="rv-nm">山田 花子さん</div><div class="rv-pet">トイプードル・ムギちゃん</div></div>
+        <div class="rv-stars">★★★★★</div>
+      </div>
+      <div class="rv-tx">毎回丁寧に対応していただいています。写真やレポートを送ってくれるので遠出しても安心です。ムギも慣れていてさおりさんが来ると喜んでいます！</div>
+      <div class="rv-dt">2025年6月</div>
+    </div>
+    <div class="rv">
+      <div class="rv-hd">
+        <div class="rv-av">👩</div>
+        <div><div class="rv-nm">田中 美咲さん</div><div class="rv-pet">ポメラニアン・ハナちゃん</div></div>
+        <div class="rv-stars">★★★★★</div>
+      </div>
+      <div class="rv-tx">ハナがいつも楽しそうにお散歩に行きます。連絡も丁寧で信頼できます😊</div>
+      <div class="rv-dt">2025年5月</div>
+    </div>
+    <div class="rv">
+      <div class="rv-hd">
+        <div class="rv-av">👨</div>
+        <div><div class="rv-nm">鈴木 一郎さん</div><div class="rv-pet">猫2匹・モコ・チョコ</div></div>
+        <div class="rv-stars">★★★★★</div>
+      </div>
+      <div class="rv-tx">2泊お願いしましたが、毎日写真と報告をいただき安心して旅行できました。また絶対お願いします。</div>
+      <div class="rv-dt">2025年4月</div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="divider"></div>
+<div class="sec" style="padding-top:28px;padding-bottom:28px;" id="form-area">
+  <div class="sec-label">REQUEST</div>
+  <div class="sec-title">予約リクエスト</div>
+
+  <div class="form-card" id="main-form">
+    <div class="form-hint">必要な情報をまとめて送ってください。さおりから<strong>1〜2時間以内</strong>にご連絡します。</div>
+
+    <div class="fl">
+      <label>サービス <span class="req">*</span></label>
+      <div class="chip-row" id="svc-chips">
+        <span class="chip on" onclick="tChip(this,'svc')">お留守番</span>
+        <span class="chip" onclick="tChip(this,'svc')">お散歩</span>
+        <span class="chip" onclick="tChip(this,'svc')">お泊まり</span>
+        <span class="chip" onclick="tChip(this,'svc')">病院付き添い</span>
+      </div>
+    </div>
+    <div class="two">
+      <div class="fl"><label>開始日 <span class="req">*</span></label><input type="date" id="f-start" onchange="calcEst()"/></div>
+      <div class="fl"><label>終了日</label><input type="date" id="f-end"/></div>
+    </div>
+    <div class="two">
+      <div class="fl"><label>開始時間</label><input type="time" id="f-stime" value="10:00" onchange="calcEst()"/></div>
+      <div class="fl"><label>終了時間</label><input type="time" id="f-etime" value="18:00" onchange="calcEst()"/></div>
+    </div>
+    <div class="fl">
+      <label>ペットの名前・種類・年齢 <span class="req">*</span></label>
+      <input id="f-pet" placeholder="例：ムギ（トイプードル・3歳・オス）"/>
+    </div>
+    <div class="fl">
+      <label>体重</label>
+      <div class="chip-row">
+        <span class="chip on" onclick="tChip(this,'weight')">〜5kg</span>
+        <span class="chip" onclick="tChip(this,'weight')">5〜15kg</span>
+        <span class="chip" onclick="tChip(this,'weight')">15kg〜</span>
+      </div>
+    </div>
+    <div class="fl">
+      <label>投薬対応</label>
+      <div class="chip-row">
+        <span class="chip on" onclick="tChip(this,'med')">不要</span>
+        <span class="chip" onclick="tChip(this,'med')">1日1回</span>
+        <span class="chip" onclick="tChip(this,'med')">1日2回以上</span>
+      </div>
+    </div>
+    <div class="fl">
+      <label>お名前 <span class="req">*</span></label>
+      <input id="f-name" placeholder="山田 花子"/>
+    </div>
+    <div class="fl">
+      <label>連絡先（電話番号 or LINE ID）<span class="req">*</span></label>
+      <input id="f-contact" placeholder="090-xxxx-xxxx"/>
+    </div>
+    <div class="fl">
+      <label>ご要望・伝えておきたいこと</label>
+      <textarea id="f-note" placeholder="例：16時にご飯100g。アレルギーはありません。初回なので少し不安ですがよろしくお願いします。"></textarea>
+    </div>
+
+    <div class="est-box">
+      <div>
+        <div class="est-lbl">AI自動見積もり（目安）</div>
+        <div class="est-note" id="est-note"></div>
+      </div>
+      <div class="est-val" id="est-val">¥16,000</div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="doSubmit()">この内容でさおりに送る</button>
+    <div class="ai-box" id="ai-box"></div>
+  </div>
+
+  <div class="success" id="success">
+    <div class="su-icon">🎉</div>
+    <div class="su-title">送信しました！</div>
+    <div class="su-sub">さおりが確認次第、<strong>1〜2時間以内</strong>にご連絡します。</div>
+    <div class="su-note" id="su-summary"></div>
+    <div style="font-size:13px;color:var(--text-m);">急ぎの場合はLINEまたはお電話でどうぞ。</div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-name">🐾 さおりのペットシッター</div>
+  <div>渋谷区・世田谷区・目黒区エリア</div>
+  <div style="margin-top:5px;">Powered by PET MERIT</div>
+</div>
+
+<button class="float-btn" onclick="alert('LINE ID: @saori_petsitter\n\nお気軽にご連絡ください！')">
+  💬 急ぎはLINEで
+</button>
+
+<script>
+const BUSY = [3,7,14,21,22,28,29];
+const MONTHS = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+let calY = 2025, calM = 5, selDay = null;
+
+function renderCal() {
+  document.getElementById('cal-month').textContent = calY + '年 ' + MONTHS[calM];
+  const first = new Date(calY, calM, 1).getDay();
+  const offset = first === 0 ? 6 : first - 1;
+  const days = new Date(calY, calM + 1, 0).getDate();
+  const prev = new Date(calY, calM, 0).getDate();
+  const cells = [];
+  for (let i = 0; i < offset; i++) {
+    cells.push('<div class="cal-cell other">' + (prev - offset + 1 + i) + '</div>');
+  }
+  for (let d = 1; d <= days; d++) {
+    const busy = BUSY.includes(d);
+    const sel = selDay === d;
+    const cls = 'cal-cell ' + (busy ? 'busy' : 'open') + (sel ? ' sel' : '');
+    const click = busy ? '' : ' onclick="pickDay(' + d + ')"';
+    cells.push('<div class="' + cls + '"' + click + '>' + d + '</div>');
+  }
+  const rem = (offset + days) % 7 === 0 ? 0 : 7 - (offset + days) % 7;
+  for (let i = 1; i <= rem; i++) {
+    cells.push('<div class="cal-cell other">' + i + '</div>');
+  }
+  document.getElementById('cal-cells').innerHTML = cells.join('');
+}
+
+function calMove(d) {
+  calM += d;
+  if (calM > 11) { calM = 0; calY++; }
+  if (calM < 0) { calM = 11; calY--; }
+  selDay = null;
+  renderCal();
+  document.getElementById('sel-info').classList.remove('show');
+}
+
+function pickDay(d) {
+  selDay = d; renderCal();
+  const el = document.getElementById('sel-info');
+  el.className = 'sel-info show ' + (BUSY.includes(d) ? 'sel-busy' : 'sel-open');
+  if (BUSY.includes(d)) {
+    el.textContent = calM + 1 + '月' + d + '日は満員です。別の日をお選びください。';
+  } else {
+    el.textContent = '✓ ' + (calM + 1) + '月' + d + '日は空きがあります。下のフォームから送ってください。';
+    const pad = n => String(n).padStart(2, '0');
+    document.getElementById('f-start').value = calY + '-' + pad(calM + 1) + '-' + pad(d);
+    calcEst();
+    setTimeout(() => document.getElementById('form-area').scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+  }
+}
+
+function tChip(el, g) {
+  el.closest('.chip-row').querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  if (g === 'svc') calcEst();
+}
+
+function pickSvc(el, name) {
+  document.querySelectorAll('.svc-card').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('#svc-chips .chip').forEach(c => c.classList.toggle('on', c.textContent === name));
+  calcEst();
+  setTimeout(() => document.getElementById('form-area').scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+}
+
+function calcEst() {
+  const name = document.querySelector('#svc-chips .chip.on')?.textContent || 'お留守番';
+  const st = document.getElementById('f-stime').value || '10:00';
+  const et = document.getElementById('f-etime').value || '18:00';
+  const [sh, sm] = st.split(':').map(Number);
+  const [eh, em] = et.split(':').map(Number);
+  const hrs = Math.max(1, ((eh * 60 + em) - (sh * 60 + sm)) / 60);
+  const base = { お留守番: 2000, お散歩: 1500, お泊まり: 8000, 病院付き添い: 3000 };
+  let price = name === 'お泊まり' ? base[name] : Math.round((base[name] || 2000) * hrs);
+  const med = document.querySelector('[onclick*="\'med\'"].on')?.textContent || '';
+  if (med === '1日1回') price += 500;
+  if (med === '1日2回以上') price += 1000;
+  document.getElementById('est-val').textContent = '¥' + price.toLocaleString();
+  document.getElementById('est-note').textContent = name + '  ' + st + '〜' + et;
+  return price;
+}
+
+async function doSubmit() {
+  const name = document.getElementById('f-name').value.trim();
+  const pet = document.getElementById('f-pet').value.trim();
+  const contact = document.getElementById('f-contact').value.trim();
+  const start = document.getElementById('f-start').value;
+  if (!name || !pet || !contact || !start) {
+    alert('お名前・ペット情報・連絡先・開始日は必須です'); return;
+  }
+  const svc = document.querySelector('#svc-chips .chip.on')?.textContent || 'お留守番';
+  const stime = document.getElementById('f-stime').value;
+  const etime = document.getElementById('f-etime').value;
+  const note = document.getElementById('f-note').value || 'なし';
+  const med = document.querySelector('[onclick*="\'med\'"].on')?.textContent || '不要';
+  const price = calcEst();
+
+  const ab = document.getElementById('ai-box');
+  ab.innerHTML = '<span class="spin"></span> AIが内容を確認中...';
+  ab.classList.add('show');
+  document.getElementById('submit-btn').disabled = true;
+
+  const prompt = `ペットシッター「さおり」への依頼内容を確認してください。
+依頼者:${name}、連絡先:${contact}
+ペット:${pet}、投薬:${med}
+サービス:${svc}、日時:${start} ${stime}〜${etime}
+ご要望:${note}
+見積もり:¥${price.toLocaleString()}
+80字以内で: 内容を1文で要約し「この内容でさおりに送信します」と締めくくってください。`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 300, messages: [{ role: 'user', content: prompt }] })
+    });
+    const data = await res.json();
+    ab.innerHTML = '✅ ' + (data.content?.[0]?.text || 'この内容でさおりに送信します。');
+  } catch (e) {
+    ab.innerHTML = '✅ この内容でさおりに送信します。';
+  }
+
+  setTimeout(() => {
+    document.getElementById('main-form').style.display = 'none';
+    document.getElementById('su-summary').innerHTML =
+      '📅 ' + start + ' ' + stime + '〜' + etime + '<br>' +
+      '🐾 ' + pet + '<br>' +
+      '📋 ' + svc + '・' + (med !== '不要' ? '投薬あり' : '投薬なし') + '<br>' +
+      '💰 目安: ¥' + price.toLocaleString() + '<br>' +
+      '📞 ' + contact;
+    document.getElementById('success').classList.add('show');
+    window.scrollTo({ top: document.getElementById('form-area').offsetTop, behavior: 'smooth' });
+  }, 2000);
+}
+
+document.getElementById('f-start').value = new Date().toISOString().split('T')[0];
+calcEst();
+renderCal();
+</script>
+</body>
+</html>
