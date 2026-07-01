@@ -347,12 +347,6 @@ body {
       <div class="svc-pr">¥1,500 / 30分〜</div>
       <div class="svc-ds">ご希望のコースでお散歩します</div>
     </div>
-    <div class="svc-card" onclick="pickSvc(this,'お泊まり')">
-      <div class="svc-em">🌙</div>
-      <div class="svc-nm">お泊まり</div>
-      <div class="svc-pr">¥8,000 / 泊〜</div>
-      <div class="svc-ds">旅行・出張中のお世話。毎日レポートをお送りします</div>
-    </div>
     <div class="svc-card" onclick="pickSvc(this,'病院付き添い')">
       <div class="svc-em">🏥</div>
       <div class="svc-nm">病院付き添い</div>
@@ -361,7 +355,7 @@ body {
     </div>
   </div>
   <div class="opts">
-    <div class="opt"><span>💊 投薬対応</span><span class="opt-p">+ ¥500</span></div>
+    <div class="opt"><span>💊 投薬対応</span><span style="font-size:12px;color:var(--text-m);">対応可（追加料金なし）</span></div>
     <div class="opt"><span>🌙 深夜・早朝</span><span class="opt-p">+ ¥1,000</span></div>
     <div class="opt"><span>🐾 2頭目以降</span><span class="opt-p">半額</span></div>
   </div>
@@ -449,7 +443,6 @@ body {
       <div class="chip-row" id="svc-chips">
         <span class="chip on" onclick="tChip(this,'svc')">お留守番</span>
         <span class="chip" onclick="tChip(this,'svc')">お散歩</span>
-        <span class="chip" onclick="tChip(this,'svc')">お泊まり</span>
         <span class="chip" onclick="tChip(this,'svc')">病院付き添い</span>
       </div>
     </div>
@@ -490,6 +483,10 @@ body {
       <input id="f-contact" placeholder="090-xxxx-xxxx"/>
     </div>
     <div class="fl">
+      <label>ご自宅の住所 <span class="req">*</span></label>
+      <input id="f-addr" placeholder="例：東京都渋谷区〇〇1-2-3 △△マンション201"/>
+    </div>
+    <div class="fl">
       <label>ご要望・伝えておきたいこと</label>
       <textarea id="f-note" placeholder="例：16時にご飯100g。アレルギーはありません。初回なので少し不安ですがよろしくお願いします。"></textarea>
     </div>
@@ -500,6 +497,9 @@ body {
         <div class="est-note" id="est-note"></div>
       </div>
       <div class="est-val" id="est-val">¥16,000</div>
+    </div>
+    <div style="font-size:11px;color:var(--text-s);line-height:1.7;padding:8px 10px;background:var(--surface);border-radius:var(--rs);margin-bottom:12px;border:1px solid var(--border);">
+      ※ 上記はAIによる自動計算の目安金額です。実際のご請求金額はさおりからのご連絡にてご確認ください。
     </div>
 
     <button class="submit-btn" id="submit-btn" onclick="doSubmit()">この内容でさおりに送る</button>
@@ -602,8 +602,7 @@ function calcEst() {
   const base = { お留守番: 2000, お散歩: 1500, お泊まり: 8000, 病院付き添い: 3000 };
   let price = name === 'お泊まり' ? base[name] : Math.round((base[name] || 2000) * hrs);
   const med = document.querySelector('[onclick*="\'med\'"].on')?.textContent || '';
-  if (med === '1日1回') price += 500;
-  if (med === '1日2回以上') price += 1000;
+  // 投薬対応は追加料金なし
   document.getElementById('est-val').textContent = '¥' + price.toLocaleString();
   document.getElementById('est-note').textContent = name + '  ' + st + '〜' + et;
   return price;
@@ -617,6 +616,8 @@ async function doSubmit() {
   if (!name || !pet || !contact || !start) {
     alert('お名前・ペット情報・連絡先・開始日は必須です'); return;
   }
+  const addr = document.getElementById('f-addr')?.value.trim() || '';
+  if (!addr) { alert('住所を入力してください'); return; }
   const svc = document.querySelector('#svc-chips .chip.on')?.textContent || 'お留守番';
   const stime = document.getElementById('f-stime').value;
   const etime = document.getElementById('f-etime').value;
@@ -633,8 +634,9 @@ async function doSubmit() {
 依頼者:${name}、連絡先:${contact}
 ペット:${pet}、投薬:${med}
 サービス:${svc}、日時:${start} ${stime}〜${etime}
+住所:${addr}
 ご要望:${note}
-見積もり:¥${price.toLocaleString()}
+見積もり目安:¥${price.toLocaleString()}（確定金額は別途ご連絡）
 80字以内で: 内容を1文で要約し「この内容でさおりに送信します」と締めくくってください。`;
 
   try {
@@ -654,7 +656,8 @@ async function doSubmit() {
       '📅 ' + start + ' ' + stime + '〜' + etime + '<br>' +
       '🐾 ' + pet + '<br>' +
       '📋 ' + svc + '・' + (med !== '不要' ? '投薬あり' : '投薬なし') + '<br>' +
-      '💰 目安: ¥' + price.toLocaleString() + '<br>' +
+      '🏠 ' + addr + '<br>' +
+      '💰 目安: ¥' + price.toLocaleString() + '（確定金額はさおりよりご連絡します）<br>' +
       '📞 ' + contact;
     document.getElementById('success').classList.add('show');
     window.scrollTo({ top: document.getElementById('form-area').offsetTop, behavior: 'smooth' });
